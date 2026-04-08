@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Quizz App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="app">
+        <div class="container">
+            <h1 class="app-title">Quizz App</h1>
+            <div class="app-content">
+
+                <!-- Écran 0 : Connexion/Inscription -->
+                <div class="screen screen-auth">
+                    <div style="text-align: center;">
+                        <h2 class="app-subtitle">Bienvenue! 👋</h2>
+                        <p class="app-description">Connectez-vous ou créez un compte pour sauvegarder vos scores</p>
+
+                        <!-- Formulaire de connexion -->
+                        <div class="auth-form" id="login-form">
+                            <h3>Connexion</h3>
+                            <input type="text" id="login-username" placeholder="Nom d'utilisateur" class="auth-input">
+                            <input type="password" id="login-password" placeholder="Mot de passe" class="auth-input">
+                            <button class="app-button" id="btn-login">Se connecter</button>
+                            <p class="auth-switch">Pas de compte? <a href="#" id="show-register">S'inscrire</a></p>
+                        </div>
+
+                        <!-- Formulaire d'inscription -->
+                        <div class="auth-form" id="register-form" style="display: none;">
+                            <h3>Inscription</h3>
+                            <input type="text" id="register-username" placeholder="Nom d'utilisateur" class="auth-input">
+                            <input type="email" id="register-email" placeholder="Email" class="auth-input">
+                            <input type="password" id="register-password" placeholder="Mot de passe" class="auth-input">
+                            <button class="app-button" id="btn-register">S'inscrire</button>
+                            <p class="auth-switch">Déjà un compte? <a href="#" id="show-login">Se connecter</a></p>
+                        </div>
+
+                        <button class="app-button guest-button" id="btn-guest">Continuer en tant qu'invité</button>
+                    </div>
+                </div>
+
+                <!-- Écran 1 : Sélection de Quiz -->
+                <div class="screen screen-quiz-select">
+                    <div style="text-align: center;">
+                        <h2 class="app-subtitle">Choisissez votre quiz! 🎯</h2>
+                        <p class="app-description">Sélectionnez un thème et testez vos connaissances</p>
+
+                        <div class="quiz-grid" id="quiz-grid">
+                            <!-- Les quiz seront générés dynamiquement -->
+                        </div>
+
+                        <div class="user-info" id="user-info">
+                            <p>Connecté en tant que: <span id="current-user">Invité</span></p>
+                            <button class="app-button logout-button" id="btn-logout">Se déconnecter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Écran 2 : Accueil (ancien) -->
+                <div class="screen screen-start">
+                    <div style="text-align: center;">
+                        <h2 class="app-subtitle">Test your knowledge!</h2>
+                        <p class="app-description">Découvrez nos questions captivantes et mettez à l'épreuve vos connaissances sur une variété de sujets fascinants!</p>
+                        <button class="app-button" id="btn-start">🚀 Start Quiz</button>
+                        <button class="app-button back-button" id="btn-back-to-select">⬅️ Retour</button>
+                    </div>
+                </div>
+
+                <!-- Écran 2 : Question -->
+                <div class="screen screen-question">
+                    <p id="question-number">Question 1/10</p>
+                    <h2 id="question-text">Question text here</h2>
+                    <div class="options" id="options-container">
+                        <button class="option-button">Option A</button>
+                        <button class="option-button">Option B</button>
+                        <button class="option-button">Option C</button>
+                        <button class="option-button">Option D</button>
+                    </div>
+                    <button class="app-button" id="btn-next" disabled>Next</button>
+                </div>
+
+                <!-- Écran 3 : Résultats -->
+                <div class="screen screen-result">
+                    <div style="text-align: center;">
+                        <h2 class="app-subtitle">Quiz Terminé! 🎊</h2>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                            <p style="font-size: 1.1em; margin-bottom: 15px;">📊 Résultat Final</p>
+                            <p style="font-size: 2.5em; margin: 10px 0; font-weight: 700;"><span id="result-score">0</span>/<span id="result-total">10</span></p>
+                            <p style="font-size: 1em; margin-top: 15px;">⏱️ Temps: <span id="result-time">0s</span></p>
+                        </div>
+                        <p id="result-message" style="font-size: 1.2em; margin-bottom: 20px;"></p>
+
+                        <!-- Partage social -->
+                        <div class="share-section">
+                            <h3>Partagez votre score! 🌟</h3>
+                            <div class="share-buttons">
+                                <button class="share-btn twitter" id="share-twitter">🐦 Twitter</button>
+                                <button class="share-btn facebook" id="share-facebook">📘 Facebook</button>
+                                <button class="share-btn whatsapp" id="share-whatsapp">💬 WhatsApp</button>
+                                <button class="share-btn copy" id="share-copy">📋 Copier</button>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button class="app-button" id="btn-restart">🔄 Réessayer</button>
+                            <button class="app-button back-button" id="btn-back-to-select">🏠 Accueil</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Écran 4 : Dashboard -->
+                <div class="screen screen-dashboard">
+                    <div style="text-align: center;">
+                        <h2 class="app-subtitle">Votre Dashboard 📈</h2>
+                        <p class="app-description">Suivez vos progrès et vos meilleurs scores</p>
+
+                        <div class="dashboard-stats">
+                            <div class="stat-card">
+                                <h3>Quiz complétés</h3>
+                                <p class="stat-number" id="total-quizzes">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Score moyen</h3>
+                                <p class="stat-number" id="average-score">0%</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Meilleur score</h3>
+                                <p class="stat-number" id="best-score">0%</p>
+                            </div>
+                        </div>
+
+                        <div class="recent-scores">
+                            <h3>Derniers scores</h3>
+                            <div id="scores-list">
+                                <!-- Les scores seront affichés ici -->
+                            </div>
+                        </div>
+
+                        <button class="app-button" id="btn-dashboard-back">🏠 Retour à l'accueil</button>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
